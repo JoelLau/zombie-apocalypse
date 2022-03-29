@@ -63,7 +63,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,html}": [
       "nx format:write",
-      "eslint --cache --fix"
+      "eslint --fix",
+      "jest test"
     ]
   }
 }
