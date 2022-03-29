@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'zombie-apocalypse-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css'],
 })
-export class ButtonComponent {}
+export class ButtonComponent {
+  @Input() color: 'none' | 'blue' | 'green' = 'none';
+}

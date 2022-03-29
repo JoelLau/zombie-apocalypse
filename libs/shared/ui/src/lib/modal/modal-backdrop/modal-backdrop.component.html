@@ -3,11 +3,5 @@
   data-testid="modal-backdrop"
   class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full overflow-x-hidden overflow-y-auto transition-opacity bg-gray-500 bg-opacity-75 md:inset-0 h-modal md:h-full"
 >
-  <div class="relative w-full h-full max-w-2xl p-4 md:h-auto">
-    <div
-      class="relative flex flex-col items-stretch justify-start p-5 space-y-5 bg-white rounded-lg rounded-t shadow"
-    >
-      <ng-content></ng-content>
-    </div>
-  </div>
+  <ng-content></ng-content>
 </div>
