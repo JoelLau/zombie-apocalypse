@@ -14,7 +14,17 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@zombie-apocalypse/home/modals/onboarding": [
+        "libs/home/modals/onboarding/src/index.ts"
+      ],
+      "@zombie-apocalypse/home/page": ["libs/home/page/src/index.ts"],
+      "@zombie-apocalypse/shared/ng/common": [
+        "libs/shared/ng/common/src/index.ts"
+      ],
+      "@zombie-apocalypse/shared/ng/core": ["libs/shared/ng/core/src/index.ts"],
+      "@zombie-apocalypse/shared/ui": ["libs/shared/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

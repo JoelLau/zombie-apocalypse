@@ -1,0 +1,7 @@
+<pre>onboardingModalIsVisible: {{ onboardingModalIsVisible | json }}</pre>
+
+<zombie-apocalypse-home-modals-onboarding
+  *ngIf="onboardingModalIsVisible"
+  data-testid="onboarding-modal"
+  (dismiss)="onOnboardingModalDismiss()"
+></zombie-apocalypse-home-modals-onboarding>
