@@ -4,10 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main && husky install",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "lint-all": "nx run-many --all --target=lint",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -41,16 +43,27 @@
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "~5.10.0",
-    "@typescript-eslint/parser": "~5.10.0",
+    "@typescript-eslint/parser": "^5.17.0",
     "cypress": "^9.1.0",
     "eslint": "~8.7.0",
     "eslint-config-prettier": "8.1.0",
+    "eslint-import-resolver-typescript": "^2.7.0",
     "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": ">=6",
     "jest": "27.2.3",
     "jest-preset-angular": "11.1.1",
+    "lint-staged": ">=10",
     "nx": "13.9.5",
     "prettier": "^2.5.1",
     "ts-jest": "27.0.5",
     "typescript": "~4.5.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,html}": [
+      "nx format:write",
+      "eslint --cache --fix"
+    ]
   }
 }
