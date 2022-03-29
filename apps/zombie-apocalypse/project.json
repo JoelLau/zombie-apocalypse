@@ -1,0 +1,94 @@
+{
+  "projectType": "application",
+  "root": "apps/zombie-apocalypse",
+  "sourceRoot": "apps/zombie-apocalypse/src",
+  "prefix": "zombie-apocalypse",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/zombie-apocalypse",
+        "index": "apps/zombie-apocalypse/src/index.html",
+        "main": "apps/zombie-apocalypse/src/main.ts",
+        "polyfills": "apps/zombie-apocalypse/src/polyfills.ts",
+        "tsConfig": "apps/zombie-apocalypse/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/zombie-apocalypse/src/favicon.ico",
+          "apps/zombie-apocalypse/src/assets"
+        ],
+        "styles": ["apps/zombie-apocalypse/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/zombie-apocalypse/src/environments/environment.ts",
+              "with": "apps/zombie-apocalypse/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "zombie-apocalypse:build:production"
+        },
+        "development": {
+          "browserTarget": "zombie-apocalypse:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "zombie-apocalypse:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/zombie-apocalypse/src/**/*.ts",
+          "apps/zombie-apocalypse/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/zombie-apocalypse"],
+      "options": {
+        "jestConfig": "apps/zombie-apocalypse/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

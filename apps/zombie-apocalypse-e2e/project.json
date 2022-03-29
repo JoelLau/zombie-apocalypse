@@ -1,0 +1,28 @@
+{
+  "root": "apps/zombie-apocalypse-e2e",
+  "sourceRoot": "apps/zombie-apocalypse-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/zombie-apocalypse-e2e/cypress.json",
+        "devServerTarget": "zombie-apocalypse:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "zombie-apocalypse:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/zombie-apocalypse-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["zombie-apocalypse"]
+}

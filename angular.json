@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "zombie-apocalypse": "apps/zombie-apocalypse",
+    "zombie-apocalypse-e2e": "apps/zombie-apocalypse-e2e"
+  }
+}
