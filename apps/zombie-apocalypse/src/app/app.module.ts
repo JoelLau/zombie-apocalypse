@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { SharedNgCommonModule } from '@zombie-apocalypse/shared/ng/common';
 import { SharedNgCoreModule } from '@zombie-apocalypse/shared/ng/core';
 
@@ -13,10 +14,11 @@ import { SharedNgCoreModule } from '@zombie-apocalypse/shared/ng/core';
     // Third Party Modules
 
     // Core & Common Modules
-    SharedNgCoreModule,
+    SharedNgCoreModule.forRoot(),
     SharedNgCommonModule,
 
     // App Module
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent],
 })

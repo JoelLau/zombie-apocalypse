@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomePageComponent } from './home-page.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     redirectTo: '/',
@@ -9,8 +10,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () =>
-      import('@zombie-apocalypse/home/page').then((m) => m.HomePageModule),
+    component: HomePageComponent,
   },
   {
     path: '**',
@@ -20,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class HomePageRoutingModule {}

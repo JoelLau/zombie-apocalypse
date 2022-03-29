@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@zombie-apocalypse/home/page": ["libs/home/page/src/index.ts"],
       "@zombie-apocalypse/shared/ng/common": [
         "libs/shared/ng/common/src/index.ts"
       ],
