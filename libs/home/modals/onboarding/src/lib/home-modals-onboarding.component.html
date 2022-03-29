@@ -1,56 +1,41 @@
-<div
-  class="fixed inset-0 z-10 overflow-y-auto"
-  aria-labelledby="modal-title"
-  role="dialog"
-  aria-modal="true"
->
-  <div
-    class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0"
-  >
-    <div
-      class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
-      aria-hidden="true"
-    ></div>
-
-    <!-- This element is to trick the browser into centering the modal contents. -->
-    <span
-      class="hidden sm:inline-block sm:align-middle sm:h-screen"
-      aria-hidden="true"
-      >&#8203;</span
+<zombie-apocalypse-modal>
+  <div class="flex items-baseline justify-between">
+    <h3 class="text-xl font-medium leading-6 text-gray-900">
+      Terms of Service
+    </h3>
+    <button
+      type="button"
+      class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
     >
-
-    <div
-      class="relative inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-    >
-      <div class="px-4 py-5 bg-white sm:p-6 sm:pb-4">
-        <div class="mt-3 text-center sm:mt-0 sm:text-left">
-          <h3
-            class="text-xl font-medium leading-6 text-gray-900"
-            id="modal-title"
-          >
-            Zombie Apocalypse
-          </h3>
-        </div>
-      </div>
-      <div class="px-4 pb-4 bg-white sm:px-6 sm:pb-4 sm:pt-2">
-        <div class="text-center sm:mt-0 sm:text-left">
-          <p class="text-sm text-gray-500">
-            After the nuclear war, a strange and deadly virus has infected the
-            planet producing mindless zombies. These zombies now wander the
-            world converting any remaining living creatures they find to zombies
-            as well.
-          </p>
-        </div>
-      </div>
-      <div class="px-4 pt-4 pb-5 sm:px-6 sm:flex sm:flex-row-reverse">
-        <button
-          type="button"
-          class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-600 border border-gray-300 rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-30 sm:mt-0 sm:text-sm"
-          (click)="dismissModal()"
-        >
-          Begin
-        </button>
-      </div>
-    </div>
+      <svg
+        class="w-5 h-5"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
   </div>
-</div>
+
+  <div class="pb-2">
+    <p class="text-sm leading-relaxed text-gray-500">
+      With less than a month to go before the European Union enacts new consumer
+      privacy laws for its citizens, companies around the world are updating
+      their terms of service agreements to comply.
+    </p>
+  </div>
+
+  <div class="flex items-center space-x-2 rounded-b">
+    <button
+      type="button"
+      class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-600 border border-gray-300 rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-30 sm:mt-0 sm:text-sm"
+    >
+      Begin
+    </button>
+  </div>
+</zombie-apocalypse-modal>
