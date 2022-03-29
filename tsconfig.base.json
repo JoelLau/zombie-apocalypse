@@ -18,6 +18,9 @@
       "@zombie-apocalypse/home/modals/onboarding": [
         "libs/home/modals/onboarding/src/index.ts"
       ],
+      "@zombie-apocalypse/home/modals/settings": [
+        "libs/home/modals/settings/src/index.ts"
+      ],
       "@zombie-apocalypse/home/page": ["libs/home/page/src/index.ts"],
       "@zombie-apocalypse/shared/ng/common": [
         "libs/shared/ng/common/src/index.ts"

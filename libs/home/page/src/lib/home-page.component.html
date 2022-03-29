@@ -1,7 +1,12 @@
 <pre>onboardingModalIsVisible: {{ onboardingModalIsVisible | json }}</pre>
 
+<!-- TODO: toggle modals -->
+<zombie-apocalypse-home-modals-settings
+  *ngIf="true"
+></zombie-apocalypse-home-modals-settings>
+
 <zombie-apocalypse-home-modals-onboarding
-  *ngIf="onboardingModalIsVisible"
+  *ngIf="false"
   data-testid="onboarding-modal"
   (dismiss)="onOnboardingModalDismiss()"
 ></zombie-apocalypse-home-modals-onboarding>
