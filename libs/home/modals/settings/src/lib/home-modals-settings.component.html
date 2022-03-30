@@ -68,6 +68,13 @@
         />
       </div>
     </form>
+    <p
+      class="ml-12 mr-10 text-red-500"
+      style="margin-top: 0"
+      *ngFor="let error of errors"
+    >
+      {{ error }}
+    </p>
   </zombie-apocalypse-modal-body>
   <zombie-apocalypse-modal-footer>
     <zombie-apocalypse-button
