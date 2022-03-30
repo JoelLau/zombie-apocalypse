@@ -4,6 +4,7 @@
   </zombie-apocalypse-modal-header>
   <zombie-apocalypse-modal-body>
     <form [formGroup]="settingsForm" class="text-gray-900 gap-y-3">
+      <zombie-apocalypse-board-ui></zombie-apocalypse-board-ui>
       <div class="flex justify-center px-3 align-middle">
         <input type="number" formControlName="sizeExtra" min="2" max="99" />
         <input
@@ -17,9 +18,12 @@
     </form>
   </zombie-apocalypse-modal-body>
   <zombie-apocalypse-modal-footer>
-    <zombie-apocalypse-button color="blue" class="text-white"
-      >Submit</zombie-apocalypse-button
+    <button
+      type="button"
+      class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
     >
+      Cancel
+    </button>
   </zombie-apocalypse-modal-footer>
 </zombie-apocalypse-modal>
 

@@ -1,6 +1,9 @@
 {
   "version": 2,
   "projects": {
+    "board-data-access": "libs/board/data-access",
+    "board-interfaces": "libs/board/interfaces",
+    "board-ui": "libs/board/ui",
     "home-modals-onboarding": "libs/home/modals/onboarding",
     "home-modals-settings": "libs/home/modals/settings",
     "home-page": "libs/home/page",

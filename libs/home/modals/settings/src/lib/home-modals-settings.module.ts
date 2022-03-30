@@ -5,10 +5,16 @@ import {
   ButtonComponentModule,
   ModalComponentModule,
 } from '@zombie-apocalypse/shared/ui';
+import { BoardUiModule } from '@zombie-apocalypse/board/ui';
 
 @NgModule({
   declarations: [HomeModalsSettingsComponent],
   exports: [HomeModalsSettingsComponent],
-  imports: [SharedNgCommonModule, ModalComponentModule, ButtonComponentModule],
+  imports: [
+    SharedNgCommonModule,
+    ModalComponentModule,
+    ButtonComponentModule,
+    BoardUiModule,
+  ],
 })
 export class HomeModalsSettingsModule {}

@@ -5,10 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { BoardDataAccessService } from '@zombie-apocalypse/board/data-access';
 
 @Component({
   selector: 'zombie-apocalypse-home-modals-settings',
   templateUrl: './home-modals-settings.component.html',
+  providers: [BoardDataAccessService],
 })
 export class HomeModalsSettingsComponent {
   settingsForm: FormGroup = this.formBuilder.group({
