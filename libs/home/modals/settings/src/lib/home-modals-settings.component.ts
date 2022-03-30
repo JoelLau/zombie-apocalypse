@@ -12,9 +12,9 @@ import { BoardDataAccessService } from '@zombie-apocalypse/board/data-access';
 import {
   BoardGrid,
   Coordinate,
-  EMPTY_GRID_MAX,
   GRID_MAX,
   GRID_MIN,
+  Token,
 } from '@zombie-apocalypse/board/interfaces';
 
 @Component({
@@ -68,10 +68,16 @@ export class HomeModalsSettingsComponent implements OnDestroy {
 
     return combineLatest([sizeChanges, boardChanges]).subscribe(
       ([size, board]) => {
-        const grid = EMPTY_GRID_MAX.slice(0, size).map(() =>
-          EMPTY_GRID_MAX[0].slice(0, size)
-        );
-        this.board.setBoard({ ...board, ...{ grid } });
+        const { grid } = board;
+        const newGrid = [] as Token[][][];
+        for (let y = 0; y < size; y++) {
+          const row = [];
+          for (let x = 0; x < size; x++) {
+            row.push((grid[y] || [])[x] || []);
+          }
+          newGrid.push(row);
+        }
+        this.board.setBoard({ ...board, ...{ grid: newGrid } });
       }
     );
   }

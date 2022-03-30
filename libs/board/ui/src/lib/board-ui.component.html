@@ -1,15 +1,19 @@
 <div
-  class="grid pl-12 pr-10"
+  class="grid gap-4 pl-12 pr-10"
   [ngStyle]="{ 'grid-template-columns': gridTemplateColumns }"
 >
   <ng-container *ngFor="let row of grid; let rowIndex = index">
     <ng-container *ngFor="let cell of row; let columnIndex = index">
       <div
-        class="relative overflow-hidden text-center -translate-y-1/2 border-2 border-gray-700 aspect-square top-1/2 hover:bg-slate-200"
+        class="relative flex items-center justify-center overflow-hidden -translate-y-1/2 border-2 border-gray-700 aspect-square top-1/2 hover:bg-slate-200"
+        [ngClass]="{
+          'bg-green-400 hover:bg-green-500': hasZombie(cell),
+          'bg-blue-400 hover:bg-blue-500': hasCreature(cell)
+        }"
         (click)="onTileClick(columnIndex, rowIndex)"
         data-testid="tile"
       >
-        TILE: {{ cell | json }}
+        <span>TILE: {{ cell | json }}</span>
       </div>
     </ng-container>
   </ng-container>

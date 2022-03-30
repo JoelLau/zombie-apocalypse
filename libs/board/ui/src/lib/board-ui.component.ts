@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BoardGrid, Coordinate } from '@zombie-apocalypse/board/interfaces';
+import {
+  BoardGrid,
+  Coordinate,
+  Token,
+} from '@zombie-apocalypse/board/interfaces';
 
 @Component({
   selector: 'zombie-apocalypse-board-ui',
@@ -19,5 +23,13 @@ export class BoardUiComponent {
       x: columnIndex,
       y: rowIndex,
     });
+  }
+
+  hasZombie(cell: Token[]) {
+    return cell.some(({ type }) => type === 'ZOMBIE');
+  }
+
+  hasCreature(cell: Token[]) {
+    return cell.some(({ type }) => type === 'CREATURE');
   }
 }

@@ -1,7 +1,18 @@
 <zombie-apocalypse-modal>
   <zombie-apocalypse-modal-header>
     <h3 class="mb-4">Settings</h3>
+    <p></p>
   </zombie-apocalypse-modal-header>
+  <p style="margin-top: 0">
+    Click on the grid to place a
+    <strong
+      *ngIf="settingsForm.formControls.mode.value === 0"
+      class="text-green-600"
+      >Zombie</strong
+    ><strong *ngIf="settingsForm.formControls.mode.value === 1"
+      >Creature</strong
+    >
+  </p>
   <zombie-apocalypse-modal-body>
     <form
       [formGroup]="settingsForm"

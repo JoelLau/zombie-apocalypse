@@ -53,7 +53,7 @@ export class BoardDataAccessService {
     const { x, y } = coords;
 
     grid[y][x].push(token);
-    this.setBoard({ ...board, grid });
+    this.setBoard({ ...board });
   }
 
   removeZombiesFromCell(coords: Coordinate) {

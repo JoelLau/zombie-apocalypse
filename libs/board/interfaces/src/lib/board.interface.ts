@@ -30,8 +30,4 @@ export const GRID_MAX = 20;
 
 export const GRID_DEFAULT = [];
 
-export const EMPTY_GRID_MAX: BoardGrid = new Array(GRID_MAX).fill(
-  new Array(GRID_MAX).fill(GRID_DEFAULT)
-);
-
 export const DEBOUNCE_TIME = 500;
