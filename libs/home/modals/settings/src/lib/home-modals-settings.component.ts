@@ -7,7 +7,7 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { SettingsForm } from './settings-form';
+import { MODE_CREATURE, MODE_ZOMBIE, SettingsForm } from './settings-form';
 import { BoardDataAccessService } from '@zombie-apocalypse/board/data-access';
 import {
   BoardGrid,
@@ -34,17 +34,20 @@ export class HomeModalsSettingsComponent implements OnDestroy {
 
   constructor(private board: BoardDataAccessService) {
     const sizeFormControl = this.settingsForm.formControls.size;
+    const sizeChanges = sizeFormControl.valueChanges.pipe(
+      distinctUntilChanged()
+    );
+
     const sizeExtraFormControl = this.settingsForm.formControls.sizeExtra;
+    const sizeExtraChanges = sizeExtraFormControl.valueChanges.pipe(
+      distinctUntilChanged()
+    );
 
     this.subscriptions.add(
-      sizeFormControl.valueChanges
-        .pipe(distinctUntilChanged())
-        .subscribe((data) => sizeExtraFormControl.setValue(data))
+      sizeChanges.subscribe((data) => sizeExtraFormControl.setValue(data))
     );
     this.subscriptions.add(
-      sizeExtraFormControl.valueChanges
-        .pipe(distinctUntilChanged())
-        .subscribe((data) => sizeFormControl.setValue(data))
+      sizeExtraChanges.subscribe((data) => sizeFormControl.setValue(data))
     );
 
     this.subscriptions.add(this.bindSizeToBoardGrid());
@@ -74,6 +77,28 @@ export class HomeModalsSettingsComponent implements OnDestroy {
   }
 
   onTileClick(coords: Coordinate) {
-    console.log(`coords: ${JSON.stringify(coords)}`);
+    this.updateGameBoard(coords);
+  }
+
+  updateGameBoard(coords: Coordinate) {
+    const cell = this.board.getTokensOnCoordinate(coords);
+    const mode = this.settingsForm.formControls.mode.value;
+
+    const zombies = cell.filter((value) => value.type === 'ZOMBIE');
+    const creatures = cell.filter((value) => value.type === 'CREATURE');
+
+    switch (mode) {
+      case MODE_ZOMBIE:
+        zombies.length > 0
+          ? this.board.removeZombiesFromCell(coords)
+          : this.board.addZombieToCell(coords);
+        break;
+
+      case MODE_CREATURE:
+        creatures.length > 0
+          ? this.board.removeCreaturesFromCell(coords)
+          : this.board.addCreatureToCell(coords);
+        break;
+    }
   }
 }

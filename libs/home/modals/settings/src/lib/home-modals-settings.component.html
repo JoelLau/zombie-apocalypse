@@ -3,7 +3,10 @@
     <h3 class="mb-4">Settings</h3>
   </zombie-apocalypse-modal-header>
   <zombie-apocalypse-modal-body>
-    <form [formGroup]="settingsForm" class="text-gray-900 gap-y-3">
+    <form
+      [formGroup]="settingsForm"
+      class="flex flex-col text-gray-900 gap-y-5"
+    >
       <zombie-apocalypse-board-ui
         [grid]="grid$ | async"
         (tileClicked)="onTileClick($event)"

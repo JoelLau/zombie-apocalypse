@@ -12,6 +12,7 @@ export class SettingsForm extends FormGroup {
       sizeExtra: this.controls['sizeExtra'] as FormControl,
       zombies: this.controls['zombies'] as FormControl,
       creatures: this.controls['creatures'] as FormControl,
+      mode: this.controls['mode'] as FormControl,
     };
   }
 
@@ -19,6 +20,10 @@ export class SettingsForm extends FormGroup {
     super(settingsFormInitControls);
   }
 }
+
+export const MODE_ZOMBIE = 0;
+
+export const MODE_CREATURE = 1;
 
 export const settingsFormInitControls = {
   size: new FormControl(DEFAULT_INIT_GRID.length, [
@@ -34,6 +39,11 @@ export const settingsFormInitControls = {
   ]),
   zombies: new FormControl(2, [Validators.required, Validators.min(1)]),
   creatures: new FormControl(2, [Validators.required, Validators.min(2)]),
+  mode: new FormControl(MODE_ZOMBIE, [
+    Validators.required,
+    Validators.min(MODE_ZOMBIE),
+    Validators.max(MODE_CREATURE),
+  ]),
 };
 
 export type settingsFormKeys = keyof typeof settingsFormInitControls;

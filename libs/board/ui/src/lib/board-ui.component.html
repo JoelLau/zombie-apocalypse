@@ -1,5 +1,5 @@
 <div
-  class="grid p-10 pt-0 pl-12"
+  class="grid pl-12 pr-10"
   [ngStyle]="{ 'grid-template-columns': gridTemplateColumns }"
 >
   <ng-container *ngFor="let row of grid; let rowIndex = index">
@@ -9,7 +9,7 @@
         (click)="onTileClick(columnIndex, rowIndex)"
         data-testid="tile"
       >
-        TILE: {{ { x: columnIndex, y: rowIndex } | json }}
+        TILE: {{ cell | json }}
       </div>
     </ng-container>
   </ng-container>
