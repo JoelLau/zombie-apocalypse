@@ -7,8 +7,9 @@
       <div
         class="relative flex items-center justify-center overflow-hidden -translate-y-1/2 border-2 border-gray-700 aspect-square top-1/2 hover:bg-slate-200"
         [ngClass]="{
-          'bg-green-400 hover:bg-green-500': hasZombie(cell),
-          'bg-blue-400 hover:bg-blue-500': hasCreature(cell)
+          'bg-green-400 hover:bg-green-500': onlyHasZombies(cell),
+          'bg-blue-400 hover:bg-blue-500': onlyHasCreatures(cell),
+          'bg-red-400 hover:bg-red-500': hasCreaturesAndZombies(cell)
         }"
         (click)="onTileClick(columnIndex, rowIndex)"
         data-testid="tile"

@@ -25,11 +25,24 @@ export class BoardUiComponent {
     });
   }
 
-  hasZombie(cell: Token[]) {
-    return cell.some(({ type }) => type === 'ZOMBIE');
+  onlyHasZombies(cell: Token[]) {
+    return (
+      cell.length > 0 &&
+      cell.length === cell.filter(({ type }) => type === 'ZOMBIE').length
+    );
   }
 
-  hasCreature(cell: Token[]) {
-    return cell.some(({ type }) => type === 'CREATURE');
+  onlyHasCreatures(cell: Token[]) {
+    return (
+      cell.length > 0 &&
+      cell.length === cell.filter(({ type }) => type === 'CREATURE').length
+    );
+  }
+
+  hasCreaturesAndZombies(cell: Token[]) {
+    return (
+      cell.some(({ type }) => type === 'ZOMBIE') &&
+      cell.some(({ type }) => type === 'CREATURE')
+    );
   }
 }

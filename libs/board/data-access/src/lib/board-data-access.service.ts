@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 import {
   Board,
   Coordinate,
@@ -33,6 +33,48 @@ export class BoardDataAccessService {
     this.board.next(newBoard);
   }
 
+  fetchZombies() {
+    return this.fetchBoard().pipe(
+      distinctUntilChanged(),
+      map(({ grid }) =>
+        grid.reduce(
+          (allZombies, row) => [
+            ...allZombies,
+            ...row.reduce(
+              (zombiesOnRow, cell) => [
+                ...zombiesOnRow,
+                ...cell.filter(({ type }) => type === 'ZOMBIE'),
+              ],
+              []
+            ),
+          ],
+          [] as Token[]
+        )
+      )
+    );
+  }
+
+  fetchCreatures() {
+    return this.fetchBoard().pipe(
+      distinctUntilChanged(),
+      map(({ grid }) =>
+        grid.reduce(
+          (allZombies, row) => [
+            ...allZombies,
+            ...row.reduce(
+              (zombiesOnRow, cell) => [
+                ...zombiesOnRow,
+                ...cell.filter(({ type }) => type === 'CREATURE'),
+              ],
+              []
+            ),
+          ],
+          [] as Token[]
+        )
+      )
+    );
+  }
+
   getTokensOnCoordinate(coords: Coordinate) {
     const board = this.getBoard();
     const { grid } = board;
@@ -55,7 +97,7 @@ export class BoardDataAccessService {
     const { x, y } = coords;
 
     grid[y][x].push(token);
-    this.setBoard({ ...board });
+    this.setBoard({ ...board, grid });
   }
 
   removeZombiesFromCell(coords: Coordinate) {

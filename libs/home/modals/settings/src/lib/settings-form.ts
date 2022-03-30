@@ -13,6 +13,7 @@ export class SettingsForm extends FormGroup {
       zombies: this.controls['zombies'] as FormControl,
       creatures: this.controls['creatures'] as FormControl,
       mode: this.controls['mode'] as FormControl,
+      moveSet: this.controls['moveSet'] as FormControl,
     };
   }
 
@@ -37,12 +38,16 @@ export const settingsFormInitControls = {
     Validators.min(GRID_MIN),
     Validators.max(GRID_MAX),
   ]),
-  zombies: new FormControl(2, [Validators.required, Validators.min(1)]),
-  creatures: new FormControl(2, [Validators.required, Validators.min(2)]),
+  zombies: new FormControl(0, [Validators.required, Validators.min(1)]),
+  creatures: new FormControl(0, [Validators.required, Validators.min(0)]),
   mode: new FormControl(MODE_ZOMBIE, [
     Validators.required,
     Validators.min(MODE_ZOMBIE),
     Validators.max(MODE_CREATURE),
+  ]),
+  moveSet: new FormControl('', [
+    Validators.required,
+    Validators.pattern(new RegExp('[UDLRudlr]{1+}')),
   ]),
 };
 

@@ -33,28 +33,33 @@ export class HomeModalsSettingsComponent implements OnDestroy {
     .pipe(map(({ grid }) => grid));
 
   constructor(private board: BoardDataAccessService) {
-    const sizeFormControl = this.settingsForm.formControls.size;
-    const sizeChanges = sizeFormControl.valueChanges.pipe(
-      distinctUntilChanged()
-    );
-
-    const sizeExtraFormControl = this.settingsForm.formControls.sizeExtra;
-    const sizeExtraChanges = sizeExtraFormControl.valueChanges.pipe(
-      distinctUntilChanged()
-    );
-
-    this.subscriptions.add(
-      sizeChanges.subscribe((data) => sizeExtraFormControl.setValue(data))
-    );
-    this.subscriptions.add(
-      sizeExtraChanges.subscribe((data) => sizeFormControl.setValue(data))
-    );
-
+    this.subscriptions.add(this.bindSizeToSizeExtra());
+    this.subscriptions.add(this.bindSizeExtraToSize());
     this.subscriptions.add(this.bindSizeToBoardGrid());
+    this.subscriptions.add(this.bindBoardGridToZombies());
+    this.subscriptions.add(this.bindBoardGridToCreatures());
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  private bindSizeToSizeExtra() {
+    const size = this.settingsForm.formControls.size;
+    const sizeExtra = this.settingsForm.formControls.sizeExtra;
+    const sizeChanges = size.valueChanges.pipe(distinctUntilChanged());
+
+    return sizeChanges.subscribe((data) => sizeExtra.setValue(data));
+  }
+
+  private bindSizeExtraToSize() {
+    const size = this.settingsForm.formControls.size;
+    const sizeExtra = this.settingsForm.formControls.sizeExtra;
+    const sizeExtraChanges = sizeExtra.valueChanges.pipe(
+      distinctUntilChanged()
+    );
+
+    return sizeExtraChanges.subscribe((data) => size.setValue(data));
   }
 
   private bindSizeToBoardGrid() {
@@ -79,6 +84,28 @@ export class HomeModalsSettingsComponent implements OnDestroy {
         }
         this.board.setBoard({ ...board, ...{ grid: newGrid } });
       }
+    );
+  }
+
+  private bindBoardGridToZombies() {
+    const zombieCounter = this.settingsForm.formControls.zombies;
+    const zombiesOnBoardChanges = this.board
+      .fetchZombies()
+      .pipe(distinctUntilChanged());
+
+    return zombiesOnBoardChanges.subscribe((zombies) =>
+      zombieCounter.setValue(zombies.length)
+    );
+  }
+
+  private bindBoardGridToCreatures() {
+    const creatureCounter = this.settingsForm.formControls.creatures;
+    const creaturesOnBoardChanges = this.board
+      .fetchCreatures()
+      .pipe(distinctUntilChanged());
+
+    return creaturesOnBoardChanges.subscribe((creatures) =>
+      creatureCounter.setValue(creatures.length)
     );
   }
 

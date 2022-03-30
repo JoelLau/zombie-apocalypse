@@ -1,7 +1,6 @@
 <zombie-apocalypse-modal>
   <zombie-apocalypse-modal-header>
     <h3 class="pl-12 mb-4">Settings</h3>
-    <p></p>
   </zombie-apocalypse-modal-header>
   <p class="pl-12" style="margin-top: 0">
     Click on the grid to place a
@@ -9,7 +8,9 @@
       *ngIf="settingsForm.formControls.mode.value === 0"
       class="text-green-600"
       >Zombie</strong
-    ><strong *ngIf="settingsForm.formControls.mode.value === 1"
+    ><strong
+      *ngIf="settingsForm.formControls.mode.value === 1"
+      class="text-blue-600"
       >Creature</strong
     >
   </p>
@@ -37,6 +38,35 @@
           class="flex-1"
         />
       </div>
+      <div class="flex justify-center pl-12 gap-x-5">
+        <label>
+          <input
+            type="radio"
+            name="mode"
+            [formControl]="settingsForm.formControls.mode"
+            [value]="0"
+          />
+          Zombie
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="mode"
+            [formControl]="settingsForm.formControls.mode"
+            [value]="1"
+          />
+          Creature
+        </label>
+      </div>
+      <div class="flex items-baseline justify-start mr-10 gap-x-5">
+        <label>Moves</label>
+        <input
+          type="text"
+          [formControl]="settingsForm.formControls.moveSet"
+          placeholder="UDLR"
+          class="flex-1 inline-block w-full border-gray-300 rounded-none focus:ring-indigo-500 focus:border-indigo-500 rounded-r-md sm:text-sm"
+        />
+      </div>
     </form>
   </zombie-apocalypse-modal-body>
   <zombie-apocalypse-modal-footer>
@@ -50,3 +80,5 @@
 </zombie-apocalypse-modal>
 
 <pre>value: {{ settingsForm.value | json }}</pre>
+<pre>valid: {{ settingsForm.valid | json }}</pre>
+<pre>invalid: {{ settingsForm.invalid | json }}</pre>
