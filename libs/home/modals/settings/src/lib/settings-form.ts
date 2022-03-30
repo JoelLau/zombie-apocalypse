@@ -1,4 +1,9 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import {
   DEFAULT_INIT_GRID,
   GRID_MAX,
@@ -47,7 +52,22 @@ export const settingsFormInitControls = {
   ]),
   moveSet: new FormControl('', [
     Validators.required,
-    Validators.pattern(new RegExp('[UDLRudlr]+')),
+    (control: AbstractControl) => {
+      const value: string = control.value;
+      const acceptedCharacters = 'UDLRudlr'.split('');
+      const invalidCharacters = value
+        .split('')
+        .filter((ch) => !acceptedCharacters.includes(ch));
+
+      if (invalidCharacters.length > 0) {
+        return { invalidCharacters: invalidCharacters };
+      }
+
+      if (value.length - invalidCharacters.length < 1) {
+        return { tooShort: true };
+      }
+      return null;
+    },
   ]),
 };
 

@@ -138,16 +138,19 @@ export class HomeModalsSettingsComponent implements OnDestroy {
   get errors() {
     return Object.keys(this.settingsForm.controls)
       .map((key) => ({ key, error: this.settingsForm.get(key)?.errors }))
-      .filter(({ error }) => error)
-      .map(({ key }) => {
-        return {
-          size: `Use the slider to select a size between ${this.gridMin} and ${this.gridMax}`,
-          sizeExtra: `Use the slider to select a size between ${this.gridMin} and ${this.gridMax}`,
-          zombies: `Click on the grid to place at least 1 zombie`,
-          creatures: `Click on the grid to place creatures`,
-          mode: `Select a token to place by clicking on the radio buttons`,
-          moveSet: `Type a string of directions (U, D, L, R for Up, Down, Left and Right respectively) that zombies will follow`,
-        }[key];
-      });
+      .filter(({ error }) => error);
+  }
+
+  get errorMessages() {
+    return this.errors.map(({ key }) => {
+      return {
+        size: `Use the slider to select a size between ${this.gridMin} and ${this.gridMax}`,
+        sizeExtra: `Use the slider to select a size between ${this.gridMin} and ${this.gridMax}`,
+        zombies: `Click on the grid to place at least 1 zombie`,
+        creatures: `Click on the grid to place creatures`,
+        mode: `Select a token to place by clicking on the radio buttons`,
+        moveSet: `Type a string of directions (U, D, L, R for Up, Down, Left and Right respectively) that zombies will follow`,
+      }[key];
+    });
   }
 }

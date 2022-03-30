@@ -71,9 +71,9 @@
     <p
       class="ml-12 mr-10 text-red-500"
       style="margin-top: 0"
-      *ngFor="let error of errors"
+      *ngFor="let message of errorMessages"
     >
-      {{ error }}
+      {{ message }}
     </p>
   </zombie-apocalypse-modal-body>
   <zombie-apocalypse-modal-footer>
@@ -90,3 +90,4 @@
 <pre>invalid: {{ settingsForm.invalid | json }}</pre>
 <pre>errors: {{ settingsForm.errors | json }}</pre>
 <pre>errors: {{ errors | json }}</pre>
+<pre>errorMessages: {{ errorMessages | json }}</pre>
