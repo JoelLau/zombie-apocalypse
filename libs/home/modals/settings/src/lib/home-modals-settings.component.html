@@ -6,8 +6,9 @@
     <form [formGroup]="settingsForm" class="text-gray-900 gap-y-3">
       <zombie-apocalypse-board-ui
         [grid]="grid$ | async"
+        (tileClicked)="onTileClick($event)"
       ></zombie-apocalypse-board-ui>
-      <div class="flex justify-center px-3 align-middle">
+      <div class="flex justify-center px-3 pr-10 align-middle">
         <input
           type="number"
           [formControl]="settingsForm.formControls.sizeExtra"

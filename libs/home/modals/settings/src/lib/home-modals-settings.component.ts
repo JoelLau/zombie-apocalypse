@@ -11,6 +11,7 @@ import { SettingsForm } from './settings-form';
 import { BoardDataAccessService } from '@zombie-apocalypse/board/data-access';
 import {
   BoardGrid,
+  Coordinate,
   EMPTY_GRID_MAX,
   GRID_MAX,
   GRID_MIN,
@@ -32,8 +33,21 @@ export class HomeModalsSettingsComponent implements OnDestroy {
     .pipe(map(({ grid }) => grid));
 
   constructor(private board: BoardDataAccessService) {
+    const sizeFormControl = this.settingsForm.formControls.size;
+    const sizeExtraFormControl = this.settingsForm.formControls.sizeExtra;
+
+    this.subscriptions.add(
+      sizeFormControl.valueChanges
+        .pipe(distinctUntilChanged())
+        .subscribe((data) => sizeExtraFormControl.setValue(data))
+    );
+    this.subscriptions.add(
+      sizeExtraFormControl.valueChanges
+        .pipe(distinctUntilChanged())
+        .subscribe((data) => sizeFormControl.setValue(data))
+    );
+
     this.subscriptions.add(this.bindSizeToBoardGrid());
-    this.subscriptions.add(this.bindSizeControls());
   }
 
   ngOnDestroy(): void {
@@ -44,9 +58,11 @@ export class HomeModalsSettingsComponent implements OnDestroy {
     const sizeChanges = this.settingsForm.formControls.size.valueChanges.pipe(
       distinctUntilChanged()
     );
+
     const boardChanges = this.board
       .fetchBoard()
       .pipe(distinctUntilChanged(isEqual));
+
     return combineLatest([sizeChanges, boardChanges]).subscribe(
       ([size, board]) => {
         const grid = EMPTY_GRID_MAX.slice(0, size).map(() =>
@@ -57,16 +73,7 @@ export class HomeModalsSettingsComponent implements OnDestroy {
     );
   }
 
-  private bindSizeControls(): void {
-    const sizeFormControl = this.settingsForm.formControls.size;
-    const sizeExtraFormControl = this.settingsForm.formControls.sizeExtra;
-
-    sizeFormControl.valueChanges
-      .pipe(distinctUntilChanged())
-      .subscribe((data) => sizeExtraFormControl.setValue(data));
-
-    sizeExtraFormControl.valueChanges
-      .pipe(distinctUntilChanged())
-      .subscribe((data) => sizeFormControl.setValue(data));
+  onTileClick(coords: Coordinate) {
+    console.log(`coords: ${JSON.stringify(coords)}`);
   }
 }

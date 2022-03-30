@@ -1,9 +1,16 @@
-<div *ngFor="let row of grid; let rowIndex = index">
-  <div *ngFor="let cell of row; let columnIndex = index">
-    <div data-testid="tile" (click)="onTileClick(columnIndex, rowIndex)">
-      TILE: {{ { x: columnIndex, y: rowIndex } | json }}
-    </div>
-  </div>
+<div
+  class="grid p-10 pt-0 pl-12"
+  [ngStyle]="{ 'grid-template-columns': gridTemplateColumns }"
+>
+  <ng-container *ngFor="let row of grid; let rowIndex = index">
+    <ng-container *ngFor="let cell of row; let columnIndex = index">
+      <div
+        class="relative overflow-hidden text-center -translate-y-1/2 border-2 border-gray-700 aspect-square top-1/2 hover:bg-slate-200"
+        (click)="onTileClick(columnIndex, rowIndex)"
+        data-testid="tile"
+      >
+        TILE: {{ { x: columnIndex, y: rowIndex } | json }}
+      </div>
+    </ng-container>
+  </ng-container>
 </div>
-
-<pre>grid.length: {{ grid?.length }}</pre>

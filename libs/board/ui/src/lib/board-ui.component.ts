@@ -10,6 +10,10 @@ export class BoardUiComponent {
   @Output() tileClicked: EventEmitter<Coordinate> =
     new EventEmitter<Coordinate>();
 
+  get gridTemplateColumns() {
+    return `repeat(${(this.grid || []).length}, 1fr)`;
+  }
+
   onTileClick(columnIndex: number, rowIndex: number): void {
     this.tileClicked.emit({
       x: columnIndex,
