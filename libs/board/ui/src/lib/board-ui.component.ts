@@ -6,7 +6,7 @@ import { BoardGrid, Coordinate } from '@zombie-apocalypse/board/interfaces';
   templateUrl: './board-ui.component.html',
 })
 export class BoardUiComponent {
-  @Input() grid: BoardGrid = [];
+  @Input() grid?: BoardGrid | null = [];
   @Output() tileClicked: EventEmitter<Coordinate> =
     new EventEmitter<Coordinate>();
 

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BoardUiComponent } from './board-ui.component';
+import {
+  EMPTY_GRID_2x2,
+  EMPTY_GRID_3X3,
+} from '@zombie-apocalypse/board/interfaces';
 
 describe('BoardUiComponent', () => {
   let component: BoardUiComponent;
@@ -36,10 +40,7 @@ describe('BoardUiComponent', () => {
     });
 
     it('2x2 grid', () => {
-      component.grid = [
-        [[], []],
-        [[], []],
-      ];
+      component.grid = EMPTY_GRID_2x2;
       fixture.detectChanges();
 
       const tiles = fixture.debugElement.queryAll(elements.tiles);
@@ -50,11 +51,7 @@ describe('BoardUiComponent', () => {
   describe('should emit the correct coordinates when clicked', () => {
     describe('3x3 grid', () => {
       beforeEach(() => {
-        component.grid = [
-          [[], [], []],
-          [[], [], []],
-          [[], [], []],
-        ];
+        component.grid = EMPTY_GRID_3X3;
         fixture.detectChanges();
       });
 

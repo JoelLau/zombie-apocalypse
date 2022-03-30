@@ -1,7 +1,9 @@
 <div *ngFor="let row of grid; let rowIndex = index">
   <div *ngFor="let cell of row; let columnIndex = index">
     <div data-testid="tile" (click)="onTileClick(columnIndex, rowIndex)">
-      TILE
+      TILE: {{ { x: columnIndex, y: rowIndex } | json }}
     </div>
   </div>
 </div>
+
+<pre>grid.length: {{ grid?.length }}</pre>
