@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HomeModalsSettingsComponent } from './home-modals-settings.component';
-import { ModalComponentModule } from '@zombie-apocalypse/shared/ui';
+import { SharedNgCommonModule } from '@zombie-apocalypse/shared/ng/common';
+import {
+  ButtonComponentModule,
+  ModalComponentModule,
+} from '@zombie-apocalypse/shared/ui';
 
 @NgModule({
   declarations: [HomeModalsSettingsComponent],
   exports: [HomeModalsSettingsComponent],
-  imports: [CommonModule, ModalComponentModule],
+  imports: [SharedNgCommonModule, ModalComponentModule, ButtonComponentModule],
 })
 export class HomeModalsSettingsModule {}
