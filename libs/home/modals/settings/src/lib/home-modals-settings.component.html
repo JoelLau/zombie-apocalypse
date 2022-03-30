@@ -58,24 +58,23 @@
           Creature
         </label>
       </div>
-      <div class="flex items-baseline justify-start mr-10 gap-x-5">
-        <label>Moves</label>
+      <div class="flex items-baseline justify-start ml-12 mr-10 gap-x-5">
+        <label>Moves: </label>
         <input
           type="text"
           [formControl]="settingsForm.formControls.moveSet"
           placeholder="UDLR"
-          class="flex-1 inline-block w-full border-gray-300 rounded-none focus:ring-indigo-500 focus:border-indigo-500 rounded-r-md sm:text-sm"
+          class="inline-block w-full px-4 py-2 border-gray-500 rounded-none focus:ring-indigo-500 focus:border-indigo-500 rounded-r-md sm:text-sm"
         />
       </div>
     </form>
   </zombie-apocalypse-modal-body>
   <zombie-apocalypse-modal-footer>
-    <button
-      type="button"
-      class="inline-flex justify-center w-full px-4 py-2 mt-3 ml-12 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+    <zombie-apocalypse-button
+      color="green"
+      class="inline-flex justify-center w-full ml-12 mr-10"
+      >Submit</zombie-apocalypse-button
     >
-      Cancel
-    </button>
   </zombie-apocalypse-modal-footer>
 </zombie-apocalypse-modal>
 
