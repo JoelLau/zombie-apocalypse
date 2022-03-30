@@ -10,7 +10,7 @@ export class BoardDataAccessService {
   private board$: Observable<Board>;
 
   constructor() {
-    this.board = new BehaviorSubject<Board>({ map: [] });
+    this.board = new BehaviorSubject<Board>({ grid: [] });
     this.board$ = this.board.asObservable();
   }
 

@@ -1,5 +1,12 @@
 import { Token } from './token.interface';
 
 export interface Board {
-  map: Token[][][];
+  grid: BoardGrid;
+}
+
+export type BoardGrid = Token[][][];
+
+export interface Coordinate {
+  x: number;
+  y: number;
 }
