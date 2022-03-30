@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { isEqual } from 'lodash';
 import {
   combineLatest,
@@ -10,6 +10,7 @@ import {
 import { MODE_CREATURE, MODE_ZOMBIE, SettingsForm } from './settings-form';
 import { BoardDataAccessService } from '@zombie-apocalypse/board/data-access';
 import {
+  Board,
   BoardGrid,
   Coordinate,
   GRID_MAX,
@@ -31,6 +32,8 @@ export class HomeModalsSettingsComponent implements OnDestroy {
   grid$: Observable<BoardGrid> = this.board
     .fetchBoard()
     .pipe(map(({ grid }) => grid));
+
+  @Output() settings = new EventEmitter<Board>();
 
   constructor(private board: BoardDataAccessService) {
     this.subscriptions.add(this.bindSizeToSizeExtra());
@@ -152,5 +155,11 @@ export class HomeModalsSettingsComponent implements OnDestroy {
         moveSet: `Type a string of directions (U, D, L, R for Up, Down, Left and Right respectively) that zombies will follow`,
       }[key];
     });
+  }
+
+  submitButtonClick() {
+    if (this.errorMessages.length <= 0) {
+      this.settings.emit(this.board.getBoard());
+    }
   }
 }

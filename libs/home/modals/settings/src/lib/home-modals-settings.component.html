@@ -80,14 +80,8 @@
     <zombie-apocalypse-button
       color="green"
       class="inline-flex justify-center w-full ml-12 mr-10"
+      (click)="submitButtonClick()"
       >Submit</zombie-apocalypse-button
     >
   </zombie-apocalypse-modal-footer>
 </zombie-apocalypse-modal>
-
-<pre>value: {{ settingsForm.value | json }}</pre>
-<pre>valid: {{ settingsForm.valid | json }}</pre>
-<pre>invalid: {{ settingsForm.invalid | json }}</pre>
-<pre>errors: {{ settingsForm.errors | json }}</pre>
-<pre>errors: {{ errors | json }}</pre>
-<pre>errorMessages: {{ errorMessages | json }}</pre>

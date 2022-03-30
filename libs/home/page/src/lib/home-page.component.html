@@ -1,10 +1,12 @@
 <!-- TODO: toggle modals -->
-<zombie-apocalypse-home-modals-settings
-  *ngIf="true"
-></zombie-apocalypse-home-modals-settings>
 
 <zombie-apocalypse-home-modals-onboarding
-  *ngIf="false"
+  *ngIf="showOnboarding"
   data-testid="onboarding-modal"
   (dismiss)="onOnboardingModalDismiss()"
 ></zombie-apocalypse-home-modals-onboarding>
+
+<zombie-apocalypse-home-modals-settings
+  *ngIf="showSettings"
+  (settings)="onSettingsUpdate($event)"
+></zombie-apocalypse-home-modals-settings>
