@@ -47,7 +47,7 @@ export const settingsFormInitControls = {
   ]),
   moveSet: new FormControl('', [
     Validators.required,
-    Validators.pattern(new RegExp('[UDLRudlr]{1+}')),
+    Validators.pattern(new RegExp('[UDLRudlr]+')),
   ]),
 };
 

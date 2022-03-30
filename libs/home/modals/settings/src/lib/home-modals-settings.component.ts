@@ -134,4 +134,10 @@ export class HomeModalsSettingsComponent implements OnDestroy {
         break;
     }
   }
+
+  get errors() {
+    return Object.keys(this.settingsForm.controls).map((key) => {
+      return this.settingsForm.get(key)?.errors;
+    });
+  }
 }
