@@ -1,11 +1,11 @@
 export type Token = Zombie | Creature;
 
 export interface Zombie {
+  id: number;
   type: 'ZOMBIE';
-  icon?: string;
 }
 
 export interface Creature {
+  id: number;
   type: 'CREATURE';
-  icon?: string;
 }

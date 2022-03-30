@@ -13,6 +13,8 @@ import {
 export class BoardDataAccessService {
   private board: BehaviorSubject<Board>;
   private board$: Observable<Board>;
+  private zombieIid = 0;
+  private creatureIid = 0;
 
   constructor() {
     this.board = new BehaviorSubject<Board>({ grid: DEFAULT_INIT_GRID });
@@ -40,11 +42,11 @@ export class BoardDataAccessService {
   }
 
   addZombieToCell(coords: Coordinate) {
-    this.addTokenToCell(coords, { type: 'ZOMBIE' });
+    this.addTokenToCell(coords, { type: 'ZOMBIE', id: this.zombieIid++ });
   }
 
   addCreatureToCell(coords: Coordinate) {
-    this.addTokenToCell(coords, { type: 'CREATURE' });
+    this.addTokenToCell(coords, { type: 'CREATURE', id: this.creatureIid++ });
   }
 
   addTokenToCell(coords: Coordinate, token: Token) {
