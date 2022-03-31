@@ -16,8 +16,8 @@
       >
         <ng-container *ngFor="let token of cell">
           <ng-container [ngSwitch]="token.type">
-            <span *ngSwitchCase="'ZOMBIE'"> z </span>
-            <span *ngSwitchCase="'CREATURE'"> c </span>
+            <span *ngSwitchCase="'ZOMBIE'"> z{{ token.id }} </span>
+            <span *ngSwitchCase="'CREATURE'"> c{{ token.id }}</span>
           </ng-container>
         </ng-container>
       </div>
