@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
@@ -41,7 +42,9 @@ export class HomeModalsSettingsComponent implements OnInit, OnDestroy {
     .fetchBoard()
     .pipe(map(({ grid }) => grid));
 
+  @Input() closeable = false;
   @Output() settings = new EventEmitter<Board>();
+  @Output() dismiss = new EventEmitter<MouseEvent>();
 
   constructor(private board: BoardDataAccessService) {
     this.subscriptions.add(this.bindSizeToSizeExtra());
@@ -177,5 +180,12 @@ export class HomeModalsSettingsComponent implements OnInit, OnDestroy {
     if (this.errorMessages.length <= 0) {
       this.settings.emit(this.board.getBoard());
     }
+  }
+
+  onModalDismiss(event: MouseEvent) {
+    if (!this.closeable) {
+      return;
+    }
+    this.dismiss.emit(event);
   }
 }

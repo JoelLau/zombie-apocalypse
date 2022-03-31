@@ -11,6 +11,8 @@ export class HomePageComponent {
   showOnboarding = true;
   showSettings = false;
 
+  hasExistingBoard = false;
+
   grid$ = this.board.fetchBoard().pipe(map(({ grid }) => grid));
   gridSize$ = this.board.fetchBoard().pipe(map(({ grid }) => grid.length));
 
@@ -22,9 +24,13 @@ export class HomePageComponent {
   }
 
   onSettingsUpdate(newBoard: Board) {
-    console.log(newBoard);
     this.showSettings = false;
+    this.hasExistingBoard = true;
     this.board.setBoard(newBoard);
+  }
+
+  onSettingsDismiss(event: MouseEvent) {
+    this.showSettings = false;
   }
 
   onTileClick(coords: Coordinate) {
