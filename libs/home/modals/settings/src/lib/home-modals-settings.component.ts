@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { isEqual } from 'lodash';
 import {
   combineLatest,
@@ -23,7 +29,7 @@ import {
   templateUrl: './home-modals-settings.component.html',
   providers: [BoardDataAccessService],
 })
-export class HomeModalsSettingsComponent implements OnDestroy {
+export class HomeModalsSettingsComponent implements OnInit, OnDestroy {
   gridMin = GRID_MIN;
   gridMax = GRID_MAX;
 
@@ -43,6 +49,12 @@ export class HomeModalsSettingsComponent implements OnDestroy {
     this.subscriptions.add(this.bindSizeToBoardGrid());
     this.subscriptions.add(this.bindBoardGridToZombies());
     this.subscriptions.add(this.bindBoardGridToCreatures());
+  }
+
+  ngOnInit(): void {
+    this.settingsForm.formControls.size.setValue(
+      this.settingsForm.formControls.size.value
+    );
   }
 
   ngOnDestroy(): void {
