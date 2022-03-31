@@ -44,7 +44,7 @@ export const settingsFormInitControls = {
     Validators.max(GRID_MAX),
   ]),
   zombies: new FormControl(0, [Validators.required, Validators.min(1)]),
-  creatures: new FormControl(0, [Validators.required, Validators.min(0)]),
+  creatures: new FormControl(0, [Validators.required, Validators.min(1)]),
   mode: new FormControl(MODE_ZOMBIE, [
     Validators.required,
     Validators.min(MODE_ZOMBIE),

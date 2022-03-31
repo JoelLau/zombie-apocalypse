@@ -1,5 +1,12 @@
 <!-- TODO: toggle modals -->
 
+<button type="button" (click)="openSettings()">Settings</button>
+
+<zombie-apocalypse-board-ui
+  [grid]="grid$ | async"
+  (tileClicked)="onTileClick($event)"
+></zombie-apocalypse-board-ui>
+
 <zombie-apocalypse-home-modals-onboarding
   *ngIf="showOnboarding"
   data-testid="onboarding-modal"

@@ -27,6 +27,8 @@ export class HomeModalsSettingsComponent implements OnDestroy {
   gridMin = GRID_MIN;
   gridMax = GRID_MAX;
 
+  hasAttempedSubmission = false;
+
   settingsForm: SettingsForm = new SettingsForm();
   subscriptions: Subscription = new Subscription();
   grid$: Observable<BoardGrid> = this.board
@@ -158,6 +160,8 @@ export class HomeModalsSettingsComponent implements OnDestroy {
   }
 
   submitButtonClick() {
+    this.hasAttempedSubmission = true;
+
     if (this.errorMessages.length <= 0) {
       this.settings.emit(this.board.getBoard());
     }

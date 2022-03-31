@@ -93,7 +93,7 @@ export class BoardDataAccessService {
 
   addTokenToCell(coords: Coordinate, token: Token) {
     const board = this.getBoard();
-    const { grid } = board;
+    const { grid } = JSON.parse(JSON.stringify(board));
     const { x, y } = coords;
 
     grid[y][x].push(token);

@@ -14,7 +14,12 @@
         (click)="onTileClick(columnIndex, rowIndex)"
         data-testid="tile"
       >
-        <span>TILE: {{ cell | json }}</span>
+        <ng-container *ngFor="let token of cell">
+          <ng-container [ngSwitch]="token.type">
+            <span *ngSwitchCase="'ZOMBIE'"> z </span>
+            <span *ngSwitchCase="'CREATURE'"> c </span>
+          </ng-container>
+        </ng-container>
       </div>
     </ng-container>
   </ng-container>

@@ -68,13 +68,15 @@
         />
       </div>
     </form>
-    <p
-      class="ml-12 mr-10 text-red-500"
-      style="margin-top: 0"
-      *ngFor="let message of errorMessages"
-    >
-      {{ message }}
-    </p>
+    <ng-container *ngIf="hasAttempedSubmission">
+      <p
+        class="ml-12 mr-10 text-red-500"
+        style="margin-top: 0"
+        *ngFor="let message of errorMessages"
+      >
+        {{ message }}
+      </p>
+    </ng-container>
   </zombie-apocalypse-modal-body>
   <zombie-apocalypse-modal-footer>
     <zombie-apocalypse-button
