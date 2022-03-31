@@ -84,6 +84,12 @@
     >
       (AZ: {{ activeZombieId }}) (MC: {{ moveCount }})
     </h2>
+    <h2
+      *ngIf="message"
+      class="text-xl font-bold leading-7 text-gray-400 sm:text-3xl sm:truncate"
+    >
+      {{ message }}
+    </h2>
   </div>
   <main>
     <div class="px-1 pt-5 mx-auto max-w-7xl">

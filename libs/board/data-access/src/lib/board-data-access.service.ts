@@ -108,12 +108,15 @@ export class BoardDataAccessService {
     return grid[y][x];
   }
 
-  addZombieToCell(coords: Coordinate) {
-    this.addTokenToCell(coords, { type: 'ZOMBIE', id: this.newZombieId++ });
+  addZombieToCell(coords: Coordinate, zombieId: number = this.newZombieId++) {
+    this.addTokenToCell(coords, { type: 'ZOMBIE', id: zombieId });
   }
 
-  addCreatureToCell(coords: Coordinate) {
-    this.addTokenToCell(coords, { type: 'CREATURE', id: this.newCreatureId++ });
+  addCreatureToCell(
+    coords: Coordinate,
+    creatureId: number = this.newCreatureId++
+  ) {
+    this.addTokenToCell(coords, { type: 'CREATURE', id: creatureId });
   }
 
   addTokenToCell(coords: Coordinate, token: Token) {
@@ -157,6 +160,32 @@ export class BoardDataAccessService {
                 cell.filter(
                   (token) =>
                     !(token.type === 'CREATURE' && token.id === creatureId)
+                ),
+              ],
+            ],
+            [] as Token[][]
+          ),
+        ],
+      ],
+      [] as Token[][][]
+    );
+
+    this.setBoard({ ...board, ...{ grid: newGrid } });
+  }
+
+  removeZombie(zombieId: number) {
+    const board = this.getBoard();
+    const { grid } = board;
+    const newGrid: BoardGrid = grid.reduce(
+      (newGrid, row) => [
+        ...newGrid,
+        ...[
+          row.reduce(
+            (newRow, cell) => [
+              ...newRow,
+              ...[
+                cell.filter(
+                  (token) => !(token.type === 'ZOMBIE' && token.id === zombieId)
                 ),
               ],
             ],

@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs';
 import { BoardDataAccessService } from '@zombie-apocalypse/board/data-access';
-import { Board, Coordinate } from '@zombie-apocalypse/board/interfaces';
+import {
+  Board,
+  Coordinate,
+  Direction,
+} from '@zombie-apocalypse/board/interfaces';
 
 @Component({
   selector: 'zombie-apocalypse-home-page',
@@ -16,8 +20,14 @@ export class HomePageComponent {
   grid$ = this.board.fetchBoard().pipe(map(({ grid }) => grid));
   gridSize$ = this.board.fetchBoard().pipe(map(({ grid }) => grid.length));
 
-  activeZombieId = 0;
+  activeZombieId = 1;
   moveCount = 0;
+
+  log: string[] = [];
+
+  get message() {
+    return this.log[this.log.length - 1] || '';
+  }
 
   constructor(private board: BoardDataAccessService) {
     this.resetSimulationMetadata();
@@ -37,9 +47,16 @@ export class HomePageComponent {
   }
 
   incrementActiveZombieId() {
-    this.activeZombieId =
-      this.getZombiesAscId().filter(({ id }) => id > this.activeZombieId)[0]
-        ?.id || this.activeZombieId;
+    console.log(this.getZombiesAscId());
+    const zombiesInQueue = this.getZombiesAscId().filter(
+      ({ id }) => id > this.activeZombieId
+    );
+    if (zombiesInQueue.length <= 0) {
+      console.log(zombiesInQueue);
+      console.log('time to end this');
+      return;
+    }
+    this.activeZombieId = zombiesInQueue[0].id;
   }
 
   nextButtonClick() {
@@ -47,22 +64,15 @@ export class HomePageComponent {
   }
 
   moveSimulation() {
-    // 1. GET ACTIVE ZOMBIE COORDS
-    // 2. CHECK IF CREATURES ON COORDS
-    //    a. IF TRUE
-    //        i. INFECT OLDEST CREATURE ON COORDS
-    //    b. IF FALSE
-    //        i. CONTINUE TO STEP 3
-    // 3. GET NEXT DIRECTION
-    //    a. IF TRUTHY
-    //        i. REMOVE ZOMBIE ON CURRENT COORDS
-    //       ii. PLACE ZOMBIE ON NEW COORDS
-
-    const coords = this.getActiveZombieCoords();
-    console.log(coords);
+    console.log('moveSimulation()');
+    const zombieId = this.activeZombieId;
+    const coords = this.getZombieCoords(zombieId);
+    console.log('checking if any creatures are in active spot ...');
     // infect oldest creature on same spot as active zombie
     const creatures = this.board.getCreaturesOnCoordinate(coords);
     if (creatures.length > 0) {
+      console.log('    true');
+      console.log('    removing oldest creature from spot');
       const oldestCreature = creatures.reduce(
         (prev, curr) => (prev.id < curr.id ? prev : curr),
         creatures[0]
@@ -71,10 +81,22 @@ export class HomePageComponent {
       return;
     }
 
+    console.log('    false');
+    console.log('moving active zombie');
     // move zombie
     const { moveSet } = this.board.getBoard();
-    const nextMove = moveSet[(this.moveCount + 1) % moveSet.length];
-    console.log(nextMove);
+    const nextMove = moveSet[this.moveCount] || null;
+    console.log('    calculating next move');
+    if (!nextMove) {
+      console.log('        no more moves');
+      this.incrementActiveZombieId();
+      this.moveCount = 0;
+      return;
+    }
+    console.log('    next move ' + nextMove);
+    console.log('moving active zombie');
+    this.moveZombie(zombieId, nextMove);
+    this.moveCount++;
   }
 
   infectCreature(creatureId: number, coords: Coordinate) {
@@ -82,11 +104,39 @@ export class HomePageComponent {
     this.board.addZombieToCell(coords);
   }
 
-  getActiveZombieCoords() {
-    return (
-      this.board.getCoordsWithTokenAndId('ZOMBIE', this.activeZombieId)[0] ||
-      null
-    );
+  moveZombie(zombieId: number, direction: Direction) {
+    console.log(`moveZombie(${zombieId}, ${direction})`);
+    const coords = this.getZombieCoords(zombieId);
+    const board = this.board.getBoard();
+    const { grid } = board;
+
+    const destination = coords;
+    switch (direction) {
+      case Direction.UP:
+        destination.y =
+          coords.y - 1 < 0 ? grid[coords.x].length - 1 : coords.y - 1;
+        break;
+      case Direction.DOWN:
+        destination.y =
+          coords.y - 1 < 0 ? grid[coords.x].length - 1 : coords.y - 1;
+        break;
+      case Direction.LEFT:
+        destination.x =
+          coords.x - 1 < 0 ? grid[coords.y].length - 1 : coords.x - 1;
+        break;
+      case Direction.RIGHT:
+        destination.x =
+          coords.x + 1 > grid[coords.y].length - 1 ? 0 : coords.x + 1;
+        break;
+    }
+
+    console.log(`destination: ${JSON.stringify(destination)}`);
+    this.board.removeZombie(zombieId);
+    this.board.addZombieToCell(coords, zombieId);
+  }
+
+  getZombieCoords(zombieId: number) {
+    return this.board.getCoordsWithTokenAndId('ZOMBIE', zombieId)[0] || null;
   }
 
   onOnboardingModalDismiss() {
