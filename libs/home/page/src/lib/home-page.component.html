@@ -1,6 +1,6 @@
-<!-- TODO: toggle modals -->
-
-<button type="button" (click)="openSettings()">Settings</button>
+<zombie-apocalypse-button (click)="openSettings()"
+  >Settings</zombie-apocalypse-button
+>
 
 <zombie-apocalypse-board-ui
   [grid]="grid$ | async"
