@@ -15,8 +15,18 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@zombie-apocalypse/board/data-access": [
+        "libs/board/data-access/src/index.ts"
+      ],
+      "@zombie-apocalypse/board/interfaces": [
+        "libs/board/interfaces/src/index.ts"
+      ],
+      "@zombie-apocalypse/board/ui": ["libs/board/ui/src/index.ts"],
       "@zombie-apocalypse/home/modals/onboarding": [
         "libs/home/modals/onboarding/src/index.ts"
+      ],
+      "@zombie-apocalypse/home/modals/settings": [
+        "libs/home/modals/settings/src/index.ts"
       ],
       "@zombie-apocalypse/home/page": ["libs/home/page/src/index.ts"],
       "@zombie-apocalypse/shared/ng/common": [

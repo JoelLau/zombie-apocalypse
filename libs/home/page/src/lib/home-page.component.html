@@ -1,7 +1,19 @@
-<pre>onboardingModalIsVisible: {{ onboardingModalIsVisible | json }}</pre>
+<zombie-apocalypse-button (click)="openSettings()"
+  >Settings</zombie-apocalypse-button
+>
+
+<zombie-apocalypse-board-ui
+  [grid]="grid$ | async"
+  (tileClicked)="onTileClick($event)"
+></zombie-apocalypse-board-ui>
 
 <zombie-apocalypse-home-modals-onboarding
-  *ngIf="onboardingModalIsVisible"
+  *ngIf="showOnboarding"
   data-testid="onboarding-modal"
   (dismiss)="onOnboardingModalDismiss()"
 ></zombie-apocalypse-home-modals-onboarding>
+
+<zombie-apocalypse-home-modals-settings
+  *ngIf="showSettings"
+  (settings)="onSettingsUpdate($event)"
+></zombie-apocalypse-home-modals-settings>
