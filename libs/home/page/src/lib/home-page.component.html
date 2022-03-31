@@ -55,6 +55,7 @@
         <button
           type="button"
           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          [disabled]="!isRunning"
           (click)="nextButtonClick()"
         >
           <!-- Heroicon name: arrow-circle-right -->
@@ -80,15 +81,16 @@
 
   <div class="mt-2">
     <h2
-      class="text-xl font-bold leading-7 text-gray-400 sm:text-3xl sm:truncate"
-    >
-      (AZ: {{ activeZombieId }}) (MC: {{ moveCount }})
-    </h2>
-    <h2
       *ngIf="message"
       class="text-xl font-bold leading-7 text-gray-400 sm:text-3xl sm:truncate"
     >
       {{ message }}
+    </h2>
+    <h2
+      *ngIf="!isRunning"
+      class="text-xl font-bold leading-7 text-gray-400 sm:text-3xl sm:truncate"
+    >
+      The simulation has been completed
     </h2>
   </div>
   <main>

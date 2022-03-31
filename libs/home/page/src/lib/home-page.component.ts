@@ -16,6 +16,7 @@ export class HomePageComponent {
   showSettings = false;
 
   hasExistingBoard = false;
+  isRunning = true;
 
   grid$ = this.board.fetchBoard().pipe(map(({ grid }) => grid));
   gridSize$ = this.board.fetchBoard().pipe(map(({ grid }) => grid.length));
@@ -47,16 +48,15 @@ export class HomePageComponent {
   }
 
   incrementActiveZombieId() {
-    console.log(this.getZombiesAscId());
     const zombiesInQueue = this.getZombiesAscId().filter(
       ({ id }) => id > this.activeZombieId
     );
-    if (zombiesInQueue.length <= 0) {
-      console.log(zombiesInQueue);
-      console.log('time to end this');
-      return;
+    if (!zombiesInQueue[0]) {
+      this.isRunning = false;
+      return false;
     }
     this.activeZombieId = zombiesInQueue[0].id;
+    return true;
   }
 
   nextButtonClick() {
@@ -64,38 +64,38 @@ export class HomePageComponent {
   }
 
   moveSimulation() {
-    console.log('moveSimulation()');
+    if (!this.isRunning) {
+      return;
+    }
+
     const zombieId = this.activeZombieId;
     const coords = this.getZombieCoords(zombieId);
-    console.log('checking if any creatures are in active spot ...');
     // infect oldest creature on same spot as active zombie
     const creatures = this.board.getCreaturesOnCoordinate(coords);
     if (creatures.length > 0) {
-      console.log('    true');
-      console.log('    removing oldest creature from spot');
       const oldestCreature = creatures.reduce(
         (prev, curr) => (prev.id < curr.id ? prev : curr),
         creatures[0]
       );
       this.infectCreature(oldestCreature.id, coords);
+      this.log.push(
+        `zombie ${zombieId} infected a creature at (${coords.x},${coords.y})`
+      );
       return;
     }
 
-    console.log('    false');
-    console.log('moving active zombie');
     // move zombie
     const { moveSet } = this.board.getBoard();
     const nextMove = moveSet[this.moveCount] || null;
-    console.log('    calculating next move');
     if (!nextMove) {
-      console.log('        no more moves');
       this.incrementActiveZombieId();
       this.moveCount = 0;
       return;
     }
-    console.log('    next move ' + nextMove);
-    console.log('moving active zombie');
-    this.moveZombie(zombieId, nextMove);
+    const newCoords = this.moveZombie(zombieId, nextMove);
+    this.log.push(
+      `zombie ${zombieId} moved to (${newCoords.x},${newCoords.y})`
+    );
     this.moveCount++;
   }
 
@@ -105,7 +105,6 @@ export class HomePageComponent {
   }
 
   moveZombie(zombieId: number, direction: Direction) {
-    console.log(`moveZombie(${zombieId}, ${direction})`);
     const coords = this.getZombieCoords(zombieId);
     const board = this.board.getBoard();
     const { grid } = board;
@@ -130,9 +129,9 @@ export class HomePageComponent {
         break;
     }
 
-    console.log(`destination: ${JSON.stringify(destination)}`);
     this.board.removeZombie(zombieId);
     this.board.addZombieToCell(coords, zombieId);
+    return destination;
   }
 
   getZombieCoords(zombieId: number) {
@@ -152,8 +151,9 @@ export class HomePageComponent {
     this.board.setBoard(newBoard);
     const zombies = this.getZombiesAscId();
     const creatures = this.getCreaturesAscId();
-    this.board.newZombieId = zombies[zombies.length - 1].id;
-    this.board.newCreatureId = creatures[creatures.length - 1].id;
+    this.board.newZombieId = zombies[zombies.length - 1].id + 1;
+    this.board.newCreatureId = creatures[creatures.length - 1].id + 1;
+    this.isRunning = true;
     this.resetSimulationMetadata();
   }
 
@@ -167,7 +167,6 @@ export class HomePageComponent {
 
   showTileDetails(coords: Coordinate) {
     const tile = this.board.getTokensOnCoordinate(coords);
-    console.log(tile);
   }
 
   openSettings() {
