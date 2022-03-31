@@ -7,7 +7,7 @@
 <zombie-apocalypse-home-modals-settings
   *ngIf="showSettings"
   (settings)="onSettingsUpdate($event)"
-  (dismiss)="onSettingsDismiss($event)"
+  (dismiss)="onSettingsDismiss()"
   [closeable]="hasExistingBoard"
 ></zombie-apocalypse-home-modals-settings>
 

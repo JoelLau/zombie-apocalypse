@@ -29,7 +29,7 @@ export class HomePageComponent {
     this.board.setBoard(newBoard);
   }
 
-  onSettingsDismiss(event: MouseEvent) {
+  onSettingsDismiss() {
     this.showSettings = false;
   }
 
