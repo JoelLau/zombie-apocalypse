@@ -34,27 +34,14 @@ export class BoardDataAccessService {
   }
 
   fetchZombies() {
-    return this.fetchBoard().pipe(
-      distinctUntilChanged(),
-      map(({ grid }) =>
-        grid.reduce(
-          (allZombies, row) => [
-            ...allZombies,
-            ...row.reduce(
-              (zombiesOnRow, cell) => [
-                ...zombiesOnRow,
-                ...cell.filter(({ type }) => type === 'ZOMBIE'),
-              ],
-              []
-            ),
-          ],
-          [] as Token[]
-        )
-      )
-    );
+    return this.fetchTokensOfType('ZOMBIE');
   }
 
   fetchCreatures() {
+    return this.fetchTokensOfType('CREATURE');
+  }
+
+  fetchTokensOfType(tokenType: 'ZOMBIE' | 'CREATURE') {
     return this.fetchBoard().pipe(
       distinctUntilChanged(),
       map(({ grid }) =>
@@ -64,7 +51,7 @@ export class BoardDataAccessService {
             ...row.reduce(
               (zombiesOnRow, cell) => [
                 ...zombiesOnRow,
-                ...cell.filter(({ type }) => type === 'CREATURE'),
+                ...cell.filter(({ type }) => type === tokenType),
               ],
               []
             ),
