@@ -50,6 +50,7 @@ export class HomeModalsSettingsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.bindSizeToSizeExtra());
     this.subscriptions.add(this.bindSizeExtraToSize());
     this.subscriptions.add(this.bindSizeToBoardGrid());
+    this.subscriptions.add(this.bindMovesToBoardMoveset());
     this.subscriptions.add(this.bindBoardGridToZombies());
     this.subscriptions.add(this.bindBoardGridToCreatures());
   }
@@ -103,6 +104,23 @@ export class HomeModalsSettingsComponent implements OnInit, OnDestroy {
           newGrid.push(row);
         }
         this.board.setBoard({ ...board, ...{ grid: newGrid } });
+      }
+    );
+  }
+
+  private bindMovesToBoardMoveset() {
+    const moveChanges =
+      this.settingsForm.formControls.moveSet.valueChanges.pipe(
+        distinctUntilChanged()
+      );
+
+    const boardChanges = this.board
+      .fetchBoard()
+      .pipe(distinctUntilChanged(isEqual));
+
+    return combineLatest([moveChanges, boardChanges]).subscribe(
+      ([moveSet, board]) => {
+        this.board.setBoard({ ...board, ...{ moveSet } });
       }
     );
   }
