@@ -3,7 +3,7 @@ import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 import {
   Board,
   Coordinate,
-  DEFAULT_INIT_GRID,
+  DEFAULT_INIT_BOARD,
   Token,
 } from '@zombie-apocalypse/board/interfaces';
 
@@ -13,11 +13,11 @@ import {
 export class BoardDataAccessService {
   private board: BehaviorSubject<Board>;
   private board$: Observable<Board>;
-  private zombieIid = 0;
+  private zombieId = 0;
   private creatureIid = 0;
 
   constructor() {
-    this.board = new BehaviorSubject<Board>({ grid: DEFAULT_INIT_GRID });
+    this.board = new BehaviorSubject<Board>(DEFAULT_INIT_BOARD);
     this.board$ = this.board.asObservable();
   }
 
@@ -71,7 +71,7 @@ export class BoardDataAccessService {
   }
 
   addZombieToCell(coords: Coordinate) {
-    this.addTokenToCell(coords, { type: 'ZOMBIE', id: this.zombieIid++ });
+    this.addTokenToCell(coords, { type: 'ZOMBIE', id: this.zombieId++ });
   }
 
   addCreatureToCell(coords: Coordinate) {
