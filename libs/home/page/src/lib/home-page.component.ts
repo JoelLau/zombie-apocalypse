@@ -12,6 +12,7 @@ export class HomePageComponent {
   showSettings = false;
 
   grid$ = this.board.fetchBoard().pipe(map(({ grid }) => grid));
+  gridSize$ = this.board.fetchBoard().pipe(map(({ grid }) => grid.length));
 
   constructor(private board: BoardDataAccessService) {}
 
